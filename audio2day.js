@@ -29,6 +29,9 @@
     $.fn.audioPlayer = function( options )
     {
         var params      = $.extend( { classPrefix: 'audioplayer', strPlay: 'Play', strPause: 'Pause', strVolume: 'Volume' }, options ),
+            htmlAudio   = '<audio preload="auto" controls{autoplay}{loop}><source src="{file}"></audio>',
+            cmdAutoPlay = { true: " autoplay", false: "" },
+            cmdLoop     = { true: " loop", false: "" },
             cssClass    = {},
             cssClassSub =
             {
@@ -75,7 +78,7 @@
                 isSupport = canPlayType( audioFile );
             }
 
-            var thePlayer = $( '<div class="' + params.classPrefix + '">' + ( isSupport ? $( '<div>' ).append( $this.eq( 0 ).clone() ).html() : '<embed src="' + audioFile + '" width="0" height="0" volume="100" autostart="' + isAutoPlay.toString() +'" loop="' + isLoop.toString() + '" />' ) + '<div class="' + cssClass.playPause + '" title="' + params.strPlay + '"><a href="#">' + params.strPlay + '</a></div></div>' ),
+            var thePlayer = $( '<div class="' + params.classPrefix + '">' + ( isSupport ? $( '<div>' ).append( htmlAudio.replace(/{file}/, audioFile).replace(/{autoplay}/, cmdAutoPlay[isAutoPlay]).replace(/{loop}/, cmdLoop[isLoop]) ) : '<embed src="' + audioFile + '" width="0" height="0" volume="100" autostart="' + isAutoPlay.toString() +'" loop="' + isLoop.toString() + '" />' ) + '<div class="' + cssClass.playPause + '" title="' + params.strPlay + '"><a href="#">' + params.strPlay + '</a></div></div>' ),
                 theAudio  = isSupport ? thePlayer.find( 'audio' ) : thePlayer.find( 'embed' ), theRealEvent;
             theAudio = theAudio.get( 0 );
 
