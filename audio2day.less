@@ -89,7 +89,7 @@
 	border-right: 0;
 	right: 0;
 }
-@barshadow: "-1px -1px 0 rgba( 0, 0, 0, .5 ), 1px 1px 0 rgba( 255, 255, 255, .1 )";
+@barshadow: ~"-1px -1px 0 rgba( 0, 0, 0, .5 ), 1px 1px 0 rgba( 255, 255, 255, .1 )";
 .audioplayer-bar {
 	height: 0.875em;
 	background-color: #222;
@@ -99,7 +99,7 @@
 	right: 6.875em;
 	left: 6.875em;
 	margin-top: -0.438em;
-	.box-shadow( "@{barshadow}" );
+	.box-shadow( @barshadow );
 	.rounded(4px);
 	div {
 		width: 0;
@@ -190,7 +190,7 @@
 	-o-transform: rotate( 45deg );
 	transform: rotate( 45deg );
 }
-@volshadow: "-2px -2px 2px rgba( 0, 0, 0, .15 ), 2px -2px 2px rgba( 0, 0, 0, .15 )";
+@volshadow: ~"-2px -2px 2px rgba( 0, 0, 0, .15 ), 2px -2px 2px rgba( 0, 0, 0, .15 )";
 .audioplayer-volume-adjust {
 	height: 6.25em;
 	cursor: default;
@@ -199,7 +199,7 @@
 	right: -1px;
 	top: -9999px;
 	background: #333;
-	.box-shadow( "@{volshadow}" );
+	.box-shadow( @volshadow );
 	.gradient ( #333, #444, #222 );
 	-webkit-border-top-left-radius: 2px;
 	-webkit-border-top-right-radius: 2px;
@@ -215,7 +215,7 @@
 		position: relative;
 		z-index: 1;
 		margin: 30% auto 0;
-   	.box-shadow( "@{barshadow}" );
+   	.box-shadow( @barshadow );
 		.rounded(4px);
 	}
    div div {
