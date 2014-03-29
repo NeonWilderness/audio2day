@@ -1,9 +1,9 @@
 /*
-    By Osvaldas Valutis, www.osvaldas.info
+    "audioPlayer" By Osvaldas Valutis, www.osvaldas.info
     Available for use under the MIT License
 
-    Forked 3/2014 audio2day by NeonWilderness (Adaption to the Twoday Blogger Platform)
-    <div class="audio autoplay loop" title="https://googledrive.com/host/0B87rILW4RVIJYkRIWjFZSjVNUkE/Jeopardy.mp3"></div>
+    Forked 3/2014 as "Audio2Day" by NeonWilderness (Adaption to the Twoday Blogger Platform)
+    <div class="audio autoplay loop" title="https://googledrive.com/host/0B87rILW4RVIJYkRIWjFZSjVNUkE/Jeopardy.mp3">Jeopardy song</div>
 */
 ;(function( $, window, document, undefined )
 { "use strict";
@@ -28,7 +28,7 @@
 
     $.fn.audioPlayer = function( options )
     {
-        var params      = $.extend( { classPrefix: 'audioplayer', strPlay: 'Play', strPause: 'Pause', strVolume: 'Volume' }, options ),
+        var params      = $.extend( { classPrefix: 'audioplayer', strPlay: 'Wiedergabe', strPause: 'Pause', strVolume: 'Lautstärke' }, options ),
             htmlAudio   = '<audio preload="auto" controls{autoplay}{loop}><source src="{file}"></audio>',
             cmdAutoPlay = { true: " autoplay", false: "" },
             cmdLoop     = { true: " loop", false: "" },
@@ -49,7 +49,9 @@
                 volumeAdjust:   'volume-adjust',
                 noVolume:       'novolume',
                 muted:          'muted',
-                mini:           'mini'
+                mini:           'mini',
+//------------- Added a songTitle cssClass
+                songTitle:      'title'
             };
 
         for( var subName in cssClassSub )
@@ -58,10 +60,13 @@
         this.each( function()
         {
             var $this      = $( this ),
+//------------- Extract the song URL from the title-attribute
                 audioFile  = $this.attr( 'title' ) || "",
                 isAutoPlay = false,
                 isLoop     = false,
                 isSupport  = false,
+//------------- Songtitle may be passed through the DIVs innerText
+                songTitle  = $this.text(),
                 classList  = $this.attr('class').toLowerCase().split(/\s+/);
 //--------- Analyze class names: split class specs to array and process each single class
             $.each( classList, function(){
@@ -71,6 +76,7 @@
                 }
             });
 
+//--------- Return error message if audiofile was not specified
             if (audioFile.length===0){
                 $this.html('<p class="message">Bitte die URL der Audiodatei im DIV-Attribut "title" ergänzen!</p>');
                 return;
@@ -85,7 +91,8 @@
             if( isSupport )
             {
                 thePlayer.find( 'audio' ).css( { 'width': 0, 'height': 0, 'visibility': 'hidden' } );
-                thePlayer.append( '<div class="' + cssClass.time + ' ' + cssClass.timeCurrent + '"></div><div class="' + cssClass.bar + '"><div class="' + cssClass.barLoaded + '"></div><div class="' + cssClass.barPlayed + '"></div></div><div class="' + cssClass.time + ' ' + cssClass.timeDuration + '"></div><div class="' + cssClass.volume + '"><div class="' + cssClass.volumeButton + '" title="' + params.strVolume + '"><a href="#">' + params.strVolume + '</a></div><div class="' + cssClass.volumeAdjust + '"><div><div></div></div></div></div>' );
+//------------- Added Songtitle display across the barLoaded/barPlayed DIVs, if it has been provided by the user
+                thePlayer.append( '<div class="' + cssClass.time + ' ' + cssClass.timeCurrent + '"></div><div class="' + cssClass.bar + '"><div class="' + cssClass.barLoaded + '"></div><div class="' + cssClass.barPlayed + '"></div>'+(songTitle.length>0 ? '<div class="'+cssClass.songTitle+'">'+songTitle+'</div>' : '')+'</div><div class="' + cssClass.time + ' ' + cssClass.timeDuration + '"></div><div class="' + cssClass.volume + '"><div class="' + cssClass.volumeButton + '" title="' + params.strVolume + '"><a href="#">' + params.strVolume + '</a></div><div class="' + cssClass.volumeAdjust + '"><div><div></div></div></div></div>' );
 
                 var theBar            = thePlayer.find( '.' + cssClass.bar ),
                     barPlayed         = thePlayer.find( '.' + cssClass.barPlayed ),
