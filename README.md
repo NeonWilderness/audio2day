@@ -7,9 +7,9 @@ This jQuery Script enables easy HTML audio integration for blogs on the [Twoday 
 
 The audio2day script is mainly based on the great, responsive "Audio Player"-solution from [Osvaldas Valutis](www.osvaldas.info), which has been adapted to satisfy the above Twoday restrictions.
 
-The DIV triggering the audio code must carry the special class **"audio"** and parametrize the song (e.g. MP3) in its ```title``` attribute. The song title (text) may be included within the DIV's innerText:
+The DIV triggering the audio code must carry the special class **"audio"** and parametrize the song (e.g. MP3) in its ```title``` attribute. You may want to add the class "autoplay" to start the song automatically and/or the class "loop" to restart the song at the end. The song title (text) may be included within the DIV's innerText:
 
-    <div class="audio" title="http://myurl/myway.mp3">My Way by Frank Sinatra</div>
+    <div class="audio autoplay loop" title="http://myurl/myway.mp3">My Way by Frank Sinatra</div>
 
 Since the Audio Player is fully responsive, the DIV's width may be styled with CSS.
 
