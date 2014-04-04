@@ -29,7 +29,7 @@
     $.fn.audioPlayer = function( options )
     {
         var params      = $.extend( { classPrefix: 'audioplayer', strPlay: 'Wiedergabe', strPause: 'Pause', strVolume: 'Lautstärke' }, options ),
-            htmlAudio   = '<audio preload="auto" controls{autoplay}{loop}><source src="{file}"></audio>',
+            htmlAudio   = '<audio preload="auto" controls{autoplay}{loop}><source src="{file}" type="audio/mpeg"></audio>',
             cmdAutoPlay = { true: " autoplay", false: "" },
             cmdLoop     = { true: " loop", false: "" },
             cssClass    = {},
